@@ -33,12 +33,6 @@ export const Servers: Server[] = [{
     path: "/games/",
     priority: 1,
     protocol: "https"
-}, {
-    name: "Bell",
-    hostname: "ccportedgames.s3.us-west-2.amazonaws.com",
-    path: "/",
-    priority: 6,
-    protocol: "https"
 },
 {
     name: "Olympic",
