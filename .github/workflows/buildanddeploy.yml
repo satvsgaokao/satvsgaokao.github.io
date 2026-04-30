@@ -57,27 +57,6 @@ jobs:
           node-version: '18'
       - run: npm install -g surge
       - run: surge --project ./ --domain ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
-  sync-biggamescript-availability-check:
-      needs: build-and-deploy-gh-pages
-      runs-on: ubuntu-latest
-      
-      steps:
-        - uses: actions/checkout@v4
-          with:
-            ref: gh-pages
-
-        - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
-            aws-access-key-id: ${{ secrets.S3_UPLOAD_AWS_ACCESS_KEY }}
-            aws-secret-access-key: ${{ secrets.S3_UPLOAD_AWS_SECRET_ACCESS_KEY }}
-            aws-region: us-west-2
-
-        - name: Deploy to S3
-          run: |
-            aws s3 cp big_game_script.js s3://ccportedgames/big_game_script.js |
-            aws s3 cp test_availability.html s3://ccportedgames/test_availability.html
-
   deploy-to-firebase:
     needs: build-and-deploy-gh-pages
     runs-on: ubuntu-latest

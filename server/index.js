@@ -2,13 +2,11 @@ var Transform = require('stream').Transform;
 var express = require('express')
 var Unblocker = require('unblocker');
 var app = express();
-var fs = require('fs');
-var path = require('path');
 const morgan = require("morgan");
 console.log("STARTING");
 
-// load the client script in memory
-var clientScript = fs.readFileSync(path.join(__dirname, '../', 'static/big_game_script.js'), 'utf8');
+// Use jsDelivr CDN URL for the client script instead of loading from file
+const clientScriptUrl = 'https://cdn.jsdelivr.net/gh/chemistrytutoring/chemistrytutoring.github.io@main/static/big_game_script.js';
 var config = {
     prefix: "/p/",
     responseMiddleware: [
@@ -26,7 +24,7 @@ function injectScript(data) {
             decodeStrings: false,
             transform: function (chunk, encoding, next) {
                 if (!injected && chunk.toString().toLowerCase().includes('<head>')) {
-                    var script = '<script>'+clientScript+'</script>';
+                    var script = '<script src="' + clientScriptUrl + '"></script>';
                     chunk = chunk.toString().replace(/<head>/i, '<head>' + script);
                     injected = true;
                 }
@@ -36,7 +34,7 @@ function injectScript(data) {
         });
         data.stream = data.stream.pipe(injectTransform);
     } else if (data.body) {
-        var script = '<script>'+clientScript+'</script>';
+        var script = '<script src="' + clientScriptUrl + '"></script>';
         data.body = data.body.toString().replace(/<head>/i, '<head>' + script);
     }
 }
