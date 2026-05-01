@@ -462,10 +462,6 @@ export async function findServer(): Promise<Server | null> {
         return null;
     }
     State.servers = servers;
-    if (!State.servers.find(s => s.hostname === State.currentServer?.hostname)) {
-        console.log("[STATE] Invalid saved server, resetting...");
-        State.currentServer = State.servers[0];
-    }
     try {
         // Implements the logic from server_flow.md
         const optimisticServer = (State.currentServer && State.currentServer.hostname) ? State.currentServer : null;
