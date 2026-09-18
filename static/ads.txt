@@ -1,4 +1,4 @@
-# Ads.txt last updated on: 2026/09/18 02:35:38.081392 by MONUMETRIC/CCPorted
+# Ads.txt last updated on: 2026/09/18 02:41:32.143553 by MONUMETRIC/CCPorted
 OWNERDOMAIN=ccported.github.io
 MANAGERDOMAIN=monumetric.com
 CONTACT=support@monumetric.com
